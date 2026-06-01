@@ -1,0 +1,37 @@
+{
+  "name": "smart-hr-resume-analyzer-api",
+  "version": "1.0.0",
+  "description": "API for Smart HR Resume Analyzer & Job Matcher",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "dev:memory": "node scripts/dev-with-memory-db.js",
+    "start": "node src/server.js",
+    "seed": "node sample-data/seed.js",
+    "sync:atlas": "node scripts/sync-local-to-atlas.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "google-auth-library": "^10.6.2",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "mammoth": "^1.8.0",
+    "mongodb": "^6.20.0",
+    "mongoose": "^8.9.5",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.7",
+    "openai": "^4.78.1",
+    "pdf-parse": "^1.1.1",
+    "smart-hr-resume-analyzer": "file:..",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^11.2.0",
+    "nodemon": "^3.1.9"
+  }
+}
