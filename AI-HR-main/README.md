@@ -9,7 +9,8 @@ Modern full-stack HR application for parsing resumes, extracting structured cand
 - Auth: JWT with Admin / HR roles
 - Uploads: Multer with PDF and DOCX support
 - AI/NLP: OpenAI optional for resume parsing, deterministic fallback included
-- Matching: Weighted score using skills, experience, education, and keyword similarity
+- Matc
+hing: Weighted score using skills, experience, education, and keyword similarity
 
 ## Features
 
