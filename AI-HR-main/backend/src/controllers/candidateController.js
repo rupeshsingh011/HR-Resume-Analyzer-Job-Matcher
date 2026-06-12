@@ -282,6 +282,28 @@ export async function deleteNote(req, res, next) {
   }
 }
 
+export async function updateCandidate(req, res, next) {
+  try {
+    const query = req.user.role === "Admin" ? { _id: req.params.id } : { _id: req.params.id, uploadedBy: req.user._id };
+    const { name, email, phone, skills, experienceYears, workExperience, education, certifications, projects } = req.body;
+    const updateData = {};
+    if (name !== undefined) updateData.name = name.trim();
+    if (email !== undefined) updateData.email = email?.trim() || null;
+    if (phone !== undefined) updateData.phone = phone?.trim() || null;
+    if (skills !== undefined) updateData.skills = skills;
+    if (experienceYears !== undefined) updateData.experienceYears = Number(experienceYears);
+    if (workExperience !== undefined) updateData.workExperience = workExperience;
+    if (education !== undefined) updateData.education = education;
+    if (certifications !== undefined) updateData.certifications = certifications;
+    if (projects !== undefined) updateData.projects = projects;
+    const candidate = await Candidate.findOneAndUpdate(query, updateData, { new: true }).populate("matches.job");
+    if (!candidate) return res.status(404).json({ message: "Candidate not found" });
+    res.json({ candidate });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export async function updateStage(req, res, next) {
   try {
     const { stage } = req.body;

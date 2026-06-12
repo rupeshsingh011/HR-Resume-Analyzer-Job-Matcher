@@ -65,6 +65,25 @@ export async function rankCandidatesForJob(req, res, next) {
   }
 }
 
+export async function updateJob(req, res, next) {
+  try {
+    const query = req.user.role === "Admin" ? { _id: req.params.id } : { _id: req.params.id, createdBy: req.user._id };
+    const { title, department, description, requiredSkills, preferredEducation, minExperienceYears } = req.body;
+    const updateData = {};
+    if (title !== undefined) updateData.title = title.trim();
+    if (department !== undefined) updateData.department = department.trim();
+    if (description !== undefined) updateData.description = description;
+    if (requiredSkills !== undefined) updateData.requiredSkills = requiredSkills;
+    if (preferredEducation !== undefined) updateData.preferredEducation = preferredEducation?.trim();
+    if (minExperienceYears !== undefined) updateData.minExperienceYears = Number(minExperienceYears);
+    const job = await Job.findOneAndUpdate(query, updateData, { new: true });
+    if (!job) return res.status(404).json({ message: "Job not found" });
+    res.json({ job });
+  } catch (error) {
+    next(error);
+  }
+}
+
 export async function toggleJobStatus(req, res, next) {
   try {
     const query = req.user.role === "Admin" ? { _id: req.params.id } : { _id: req.params.id, createdBy: req.user._id };

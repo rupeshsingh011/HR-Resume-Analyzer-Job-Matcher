@@ -10,7 +10,8 @@ import {
   deleteCandidate,
   addNote,
   deleteNote,
-  updateStage
+  updateStage,
+  updateCandidate
 } from "../controllers/candidateController.js";
 import { protect, restrictTo } from "../middleware/auth.js";
 import { uploadResume } from "../middleware/upload.js";
@@ -30,6 +31,7 @@ router.get("/", listCandidates);
 router.post("/upload", uploadLimiter, uploadResume.array("resumes", 50), uploadCandidateResumes);
 router.get("/:id/resume", getCandidateResume);
 router.get("/:id", getCandidate);
+router.patch("/:id", updateCandidate);
 router.patch("/:id/shortlist", shortlistCandidate);
 router.post("/:id/rematch", rematchCandidate);
 router.get("/:id/report", exportCandidateReport);
